@@ -30,42 +30,42 @@
         }
     }
 
-### Set getBasePath from user input
+### Get basePath from user input
     $basePathToLogsDirecoty = Get-BasePathToLogsDirecotyNN
 
 ### Set folder to watch + subfolder YES/NO
     $filewatcher = New-Object System.IO.FileSystemWatcher
     
-    #Set the folder to monitor
+    #Get directory to observe from user input
     $pathToObservedDirecoty = Get-PathToObservedDirecotyNN
     $filewatcher.Path = $pathToObservedDirecoty
     $filewatcher.Filter = "*.*"
     
-    #include subdirectories $true/$false
+    #Get if u should include subdirecotories to observation from  user input
     $includeSubdirectories = Get-IncludeSubdirectoriesNN
     $filewatcher.IncludeSubdirectories = $includeSubdirectories
     $filewatcher.EnableRaisingEvents = $true
 
 ### Set action when event is triggered
     $writeaction = {
-                #Changetype der Änderung laden
+                #Load changetype of change
                 $changeType = $Event.SourceEventArgs.ChangeType
-                #Path der Änderung laden
+                #Get path from change
                 $path = $Event.SourceEventArgs.FullPath
-                #Datum der Änderung setzen
+                #Get date of change
                 $dateTime = Get-Date
 
-                #Werte für Logfilespeicherung ermitteln
+                #Process the values for creating the logfile
                 $year = (Get-Date -UFormat %Y)
                 $weak = (Get-Date -UFormat %V)
                 $dayName = (Get-Date -UFormat %A) 
 
-                #Logline zusammenstellen
+                #Concat logline
                 $logline = "$changeType, $path, $dateTime"
-                #Pfad zum Logfile zusammenstellen
+                #Concat path to logfile
                 $pathToLogFile = $basePathToLogsDirecoty + $year + '\w' + $week + '\' + $dayName + '-Logs.txt'
                 
-                #Logline ins file hinein schreiben
+                #Write logline to logfile
                 Add-content -path $pathToLogFile -value $logline
               }
 
