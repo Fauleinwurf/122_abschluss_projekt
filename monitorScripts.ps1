@@ -64,7 +64,8 @@
                 $logline = "$changeType at $dateTime on $path"
                 #Concat path to logfile
                 $pathToLogFile = $basePathToLogsDirecoty + $year + '\w' + $week + '\' + $dayName + '-Logs.txt'
-                
+                mkdir -p ($basePathToLogsDirecoty + $year + '\w' + $week + '\')
+      
                 #Write logline to logfile
                 Add-content $pathToLogFile -Value $logline
               }
