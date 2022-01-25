@@ -61,12 +61,12 @@
                 $dayName = (Get-Date -UFormat %A) 
 
                 #Concat logline
-                $logline = "$changeType, $path, $dateTime"
+                $logline = "$changeType at $dateTime on $path"
                 #Concat path to logfile
                 $pathToLogFile = $basePathToLogsDirecoty + $year + '\w' + $week + '\' + $dayName + '-Logs.txt'
                 
                 #Write logline to logfile
-                Add-content -path $pathToLogFile -value $logline
+                Add-content $pathToLogFile -Value $logline
               }
 
 ### Set which events must be watched 
